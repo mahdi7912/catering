@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->integer('company_id')->unsigned()->index();
-            $table->string('name');
+            $table->string('nameeee');
             $table->string('user_name')->unique();
             $table->string('phone')->unique();
             $table->float('credit');
