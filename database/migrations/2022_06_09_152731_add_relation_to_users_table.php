@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('food_dates', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('food_id')->unsigned()->index();
-            $table->enum('meal', ['breakfast' , 'lunch' , 'dinner']);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food_dates');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

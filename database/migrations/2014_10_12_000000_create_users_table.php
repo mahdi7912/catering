@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('company_id')->unsigned()->index();
-            $table->string('nameeee');
+            $table->BigInteger('company_id')->unsigned();
+            $table->string('name');
             $table->string('user_name')->unique();
             $table->string('phone')->unique();
             $table->float('credit');
-            $table->int('validation_code');
+            $table->integer('validation_code');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
