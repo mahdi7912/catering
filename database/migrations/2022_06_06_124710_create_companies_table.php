@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('subsidy');
+            $table->unsignedBigInteger('subsidy')->default(0);
+            $table->unsignedBigInteger('credit')->default(0);
+            $table->unsignedBigInteger('increase_percent')->default(0);
+            $table->unsignedBigInteger('increase_rate')->default(0);
             $table->timestamps();
         });
     }

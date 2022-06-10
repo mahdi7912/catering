@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('company_id')->unsigned();
+            $table->BigInteger('company_id')->unsigned()->nullable();
+            $table->enum('type', ['admin', 'company', 'user'])->default('user');
             $table->string('name');
             $table->string('user_name')->unique();
-            $table->string('phone')->unique();
-            $table->float('credit');
-            $table->integer('validation_code');
+            $table->string('phone')->unique()->nullable();
+            $table->float('credit')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
