@@ -13,4 +13,14 @@ class Company extends Model
         'name',
         'subsidy'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function admins()
+    {
+        return $this->users()->where('type', 'company');
+    }
 }
