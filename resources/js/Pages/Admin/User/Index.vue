@@ -59,7 +59,7 @@ export default {
             { text: "مدیر شرکت", value: "comany" },
             { text: "معمولی", value: "user" },
           ],
-          type: "text",
+          type: "select",
           rules: ["required"],
           isHeader: true,
           col: { md: 6 },

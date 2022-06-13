@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('food_dates', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('food_id')->unsigned()->index();
-            $table->enum('meal', ['breakfast' , 'lunch' , 'dinner']);
+            $table->enum('meal', ['breakfast', 'lunch', 'dinner']);
+            $table->date('show_date');
             $table->timestamps();
         });
     }

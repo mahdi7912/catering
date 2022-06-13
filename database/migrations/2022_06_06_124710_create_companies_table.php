@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('credit')->default(0);
             $table->unsignedBigInteger('increase_percent')->default(0);
             $table->unsignedBigInteger('increase_rate')->default(0);
+            $table->text('business_days')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\CompanyController;
 use App\Http\Controllers\api\FoodController;
+use App\Http\Controllers\api\MealController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\FilterController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::inertia('/categories', 'Admin/Category/Index');
     Route::inertia('/companies', 'Admin/Company/Index');
     Route::inertia('/users', 'Admin/User/Index');
+    Route::inertia('/meals', 'Admin/Meal/Index');
 });
 
 // admin api
@@ -22,6 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('company', CompanyController::class);
     Route::apiResource('user', UserController::class);
+    Route::apiResource('meal', MealController::class);
 
     Route::post('filter', [FilterController::class, 'filter']);
 });

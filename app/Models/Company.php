@@ -14,6 +14,10 @@ class Company extends Model
         'subsidy'
     ];
 
+    public $casts = [
+        'business_days' => 'array'
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class);

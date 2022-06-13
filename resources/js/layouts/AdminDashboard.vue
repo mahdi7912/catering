@@ -102,6 +102,11 @@ export default {
                 icon: "mdi mdi-factory",
             },
             {
+                title: "وعده ها",
+                link: "/admin/meals",
+                icon: "mdi mdi-food-fork-drink",
+            },
+            {
                 title: "کاربران",
                 link: "/admin/users",
                 icon: "mdi mdi-account-circle",

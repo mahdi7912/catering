@@ -82,6 +82,21 @@ export default {
           },
           col: { md: 6 },
         },
+          {
+          title: "روز های کاری",
+          field: "business_days",
+          rel: false,
+          type: "select",
+          isHeader: true,
+          values:[
+            {text:'شنبه',value:'shanbe'},
+            {text:'یکشنبه',value:'yekshanbe'},
+            {text:'دوشنبه',value:'doshanbe'},
+            {text:'سه شنبه',value:'charshanbe'},
+            {text:'چهار شنبه',value:'panjshanbe'},
+            {text:'پنج شنبه',value:'jome'},
+          ],
+        },
       ],
     });
   },

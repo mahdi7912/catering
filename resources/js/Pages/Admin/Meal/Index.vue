@@ -13,35 +13,22 @@ export default {
 
   created() {
     this.$majra.init({
-      mainRoute: "/admin/food",
-      relations: ["/admin/category"],
+      mainRoute: "/admin/meal",
+      relations: ["/admin/user"],
       fields: [
         {
-          title: "نام غذا",
-          field: "name",
-          rel: false,
-          type: "text",
+          title: "تاریخ نمایش",
+          field: "show_date",
+          type: "date",
           isHeader: true,
           rules: ["required"],
           col: { md: 6 },
         },
         {
-          title: "قیمت",
-          field: "price",
-          rel: false,
-          type: "text",
-          props: {
-            type: "number",
-          },
-          rules: ["required"],
-          isHeader: true,
-          col: { md: 6 },
-        },
-        {
-          title: "دسته بندی",
-          field: "category_id",
+          title: "غذا",
+          field: "food_id",
           rel: {
-            model: "Category",
+            model: "Food",
           },
           type: "select",
           isHeader: true,
@@ -50,7 +37,19 @@ export default {
             "item-text": "name",
             "item-value": "id",
           },
-          col: { md: 12 },
+          col: { md: 6 },
+        },
+        {
+          title: "وعده",
+          field: "meal",
+          rel: false,
+          type: "select",
+          isHeader: true,
+          values: [
+            { text: "صبحانه", value: "breakfast" },
+            { text: "نهار", value: "lunch" },
+            { text: "شام", value: "dinner" },
+          ],
         },
       ],
     });
