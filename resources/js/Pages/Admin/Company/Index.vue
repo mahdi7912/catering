@@ -14,9 +14,7 @@ export default {
   created() {
     this.$majra.init({
       mainRoute: "/admin/company",
-      relations: [
-        "/admin/user",
-      ],
+      relations: ["/admin/user"],
       fields: [
         {
           title: "نام شرکت",
@@ -57,7 +55,7 @@ export default {
           isHeader: true,
           col: { md: 6 },
         },
-         {
+        {
           title: "افزایش قیمت غذا (مبلغ)",
           field: "increase_rate",
           type: "text",
@@ -68,33 +66,35 @@ export default {
           col: { md: 6 },
         },
         {
-          title: "مدیر",
-          field: "user_id",
-          rel: {
-            model: "User",
-          },
-          type: "select",
+          title: "مدیر ها",
+          field: "admins",
+          type: "text",
           isHeader: true,
-          rules: ["required"],
           props: {
-            'item-text': "name",
-            'item-value': "id",
+            readonly: true,
+          },
+          inList(value) {
+            return value.map(v => v.name).join(' - ')
           },
           col: { md: 6 },
         },
-          {
+        {
           title: "روز های کاری",
           field: "business_days",
           rel: false,
           type: "select",
           isHeader: true,
-          values:[
-            {text:'شنبه',value:'shanbe'},
-            {text:'یکشنبه',value:'yekshanbe'},
-            {text:'دوشنبه',value:'doshanbe'},
-            {text:'سه شنبه',value:'charshanbe'},
-            {text:'چهار شنبه',value:'panjshanbe'},
-            {text:'پنج شنبه',value:'jome'},
+          props: {
+            multiple: true,
+          },
+          values: [
+            { text: "شنبه", value: "shanbe" },
+            { text: "یکشنبه", value: "yekshanbe" },
+            { text: "دوشنبه", value: "doshanbe" },
+            { text: "سه شنبه", value: "seshanbe" },
+            { text: "چهار شنبه", value: "charshanbe" },
+            { text: "پنج شنبه", value: "panjshanbe" },
+            { text: "جمعه", value: "jome" },
           ],
         },
       ],

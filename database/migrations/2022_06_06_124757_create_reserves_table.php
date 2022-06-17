@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('food_date_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('number');
+            $table->unsignedBigInteger('price');
             $table->timestamps();
         });
     }

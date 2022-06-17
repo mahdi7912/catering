@@ -12,19 +12,20 @@ export default {
   components: { DynamicTemplate, Layout },
 
   created() {
+
     this.$majra.init({
       mainRoute: "/admin/category",
       fields: [
         {
           title: "نام دسته بندی",
           field: "name",
-          rel: false,
           type: "text",
           isHeader: true,
           rules: ["required"],
         },
       ],
     });
+
   },
 };
 </script>

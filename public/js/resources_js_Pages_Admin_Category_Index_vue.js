@@ -32,7 +32,6 @@ __webpack_require__.r(__webpack_exports__);
       fields: [{
         title: "نام دسته بندی",
         field: "name",
-        rel: false,
         type: "text",
         isHeader: true,
         rules: ["required"]
@@ -161,6 +160,10 @@ __webpack_require__.r(__webpack_exports__);
         title: "کاربران",
         link: "/admin/users",
         icon: "mdi mdi-account-circle"
+      }, {
+        title: "سفارش ها",
+        link: "/admin/reserves",
+        icon: "mdi mdi-food-turkey"
       }]
     };
   },

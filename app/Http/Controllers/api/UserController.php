@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return ['User' => User::paginate(request('allMain') ? 10000 : 15)];
+        return ['User' => User::with('company')->paginate(request('allMain') ? 10000 : 15)];
     }
 
     public function store(Request $request)

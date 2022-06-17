@@ -41,6 +41,9 @@ export default {
           rel: {
             model: "Company",
           },
+          inList(value, instance) {
+            return instance.company.name;
+          },
           type: "select",
           isHeader: true,
           rules: ["required"],
@@ -56,7 +59,7 @@ export default {
           rel: false,
           values: [
             { text: "ادمین", value: "admin" },
-            { text: "مدیر شرکت", value: "comany" },
+            { text: "مدیر شرکت", value: "company" },
             { text: "معمولی", value: "user" },
           ],
           type: "select",
@@ -88,7 +91,6 @@ export default {
           field: "password",
           type: "text",
           rules: ["required"],
-          isHeader: true,
           col: { md: 6 },
         },
       ],

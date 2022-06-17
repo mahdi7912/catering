@@ -9,9 +9,8 @@ class Company extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'subsidy'
+    protected $guarded = [
+        'id'
     ];
 
     public $casts = [
@@ -26,5 +25,12 @@ class Company extends Model
     public function admins()
     {
         return $this->users()->where('type', 'company');
+    }
+
+    public function toArray()
+    {
+        $parent = parent::toArray();
+
+        return ['admins' => $this->admins()->get()] + $parent;
     }
 }

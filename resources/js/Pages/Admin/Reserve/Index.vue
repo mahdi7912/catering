@@ -13,22 +13,37 @@ export default {
 
   created() {
     this.$majra.init({
-      mainRoute: "/admin/meal",
-      relations: ["/admin/food"],
+      mainRoute: "/admin/reserve",
+      relations: ["/admin/meal"],
       fields: [
         {
-          title: "تاریخ نمایش",
-          field: "show_date",
-          type: "date",
+          title: "تعداد",
+          field: "number",
+          type: "text",
+          props: {
+            type: "number",
+          },
+          isHeader: true,
+          rules: ["required"],
+          col: { md: 6 },
+        },
+        {
+          title: "قیمت",
+          field: "price",
+          type: "text",
+          props: {
+            type: "number",
+          },
           isHeader: true,
           rules: ["required"],
           col: { md: 6 },
         },
         {
           title: "غذا",
-          field: "food_id",
+          sendKey: "food_date_id",
+          field: "meal",
           rel: {
-            model: "Food",
+            model: "Meal",
           },
           type: "select",
           isHeader: true,
@@ -36,9 +51,6 @@ export default {
           props: {
             "item-text": "name",
             "item-value": "id",
-          },
-          inList(value, instance) {
-            return instance.food.name;
           },
           col: { md: 6 },
         },

@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.$majra.init({
       mainRoute: "/admin/meal",
-      relations: ["/admin/user"],
+      relations: ["/admin/food"],
       fields: [{
         title: "تاریخ نمایش",
         field: "show_date",
@@ -51,6 +51,9 @@ __webpack_require__.r(__webpack_exports__);
         props: {
           "item-text": "name",
           "item-value": "id"
+        },
+        inList: function inList(value, instance) {
+          return instance.food.name;
         },
         col: {
           md: 6
@@ -196,6 +199,10 @@ __webpack_require__.r(__webpack_exports__);
         title: "کاربران",
         link: "/admin/users",
         icon: "mdi mdi-account-circle"
+      }, {
+        title: "سفارش ها",
+        link: "/admin/reserves",
+        icon: "mdi mdi-food-turkey"
       }]
     };
   },

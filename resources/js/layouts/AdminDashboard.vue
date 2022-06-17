@@ -111,6 +111,11 @@ export default {
                 link: "/admin/users",
                 icon: "mdi mdi-account-circle",
             },
+            {
+                title: "سفارش ها",
+                link: "/admin/reserves",
+                icon: "mdi mdi-food-turkey",
+            },
         ]
     }),
 

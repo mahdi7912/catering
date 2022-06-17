@@ -56,6 +56,9 @@ __webpack_require__.r(__webpack_exports__);
         rel: {
           model: "Company"
         },
+        inList: function inList(value, instance) {
+          return instance.company.name;
+        },
         type: "select",
         isHeader: true,
         rules: ["required"],
@@ -75,7 +78,7 @@ __webpack_require__.r(__webpack_exports__);
           value: "admin"
         }, {
           text: "مدیر شرکت",
-          value: "comany"
+          value: "company"
         }, {
           text: "معمولی",
           value: "user"
@@ -112,7 +115,6 @@ __webpack_require__.r(__webpack_exports__);
         field: "password",
         type: "text",
         rules: ["required"],
-        isHeader: true,
         col: {
           md: 6
         }
@@ -241,6 +243,10 @@ __webpack_require__.r(__webpack_exports__);
         title: "کاربران",
         link: "/admin/users",
         icon: "mdi mdi-account-circle"
+      }, {
+        title: "سفارش ها",
+        link: "/admin/reserves",
+        icon: "mdi mdi-food-turkey"
       }]
     };
   },

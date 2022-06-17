@@ -10,7 +10,7 @@ class MealController extends Controller
 {
     public function index()
     {
-        return ['Meal' => Meal::paginate(request('allMain') ? 10000 : 15)];
+        return ['Meal' => Meal::with('food')->paginate(request('allMain') ? 10000 : 15)];
     }
 
     public function store(Request $request)

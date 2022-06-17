@@ -85,17 +85,17 @@ __webpack_require__.r(__webpack_exports__);
           md: 6
         }
       }, {
-        title: "مدیر",
-        field: "user_id",
-        rel: {
-          model: "User"
-        },
-        type: "select",
+        title: "مدیر ها",
+        field: "admins",
+        type: "text",
         isHeader: true,
-        rules: ["required"],
         props: {
-          'item-text': "name",
-          'item-value': "id"
+          readonly: true
+        },
+        inList: function inList(value) {
+          return value.map(function (v) {
+            return v.name;
+          }).join(' - ');
         },
         col: {
           md: 6
@@ -106,24 +106,30 @@ __webpack_require__.r(__webpack_exports__);
         rel: false,
         type: "select",
         isHeader: true,
+        props: {
+          multiple: true
+        },
         values: [{
-          text: 'شنبه',
-          value: 'shanbe'
+          text: "شنبه",
+          value: "shanbe"
         }, {
-          text: 'یکشنبه',
-          value: 'yekshanbe'
+          text: "یکشنبه",
+          value: "yekshanbe"
         }, {
-          text: 'دوشنبه',
-          value: 'doshanbe'
+          text: "دوشنبه",
+          value: "doshanbe"
         }, {
-          text: 'سه شنبه',
-          value: 'charshanbe'
+          text: "سه شنبه",
+          value: "seshanbe"
         }, {
-          text: 'چهار شنبه',
-          value: 'panjshanbe'
+          text: "چهار شنبه",
+          value: "charshanbe"
         }, {
-          text: 'پنج شنبه',
-          value: 'jome'
+          text: "پنج شنبه",
+          value: "panjshanbe"
+        }, {
+          text: "جمعه",
+          value: "jome"
         }]
       }]
     });
@@ -250,6 +256,10 @@ __webpack_require__.r(__webpack_exports__);
         title: "کاربران",
         link: "/admin/users",
         icon: "mdi mdi-account-circle"
+      }, {
+        title: "سفارش ها",
+        link: "/admin/reserves",
+        icon: "mdi mdi-food-turkey"
       }]
     };
   },

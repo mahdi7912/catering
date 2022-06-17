@@ -13,7 +13,7 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 Vue.use(Majra, {
     store,
     configs: {
-        FILTER_URL: "/api/filter",
+        FILTER_URL: "/api/admin/filter",
         BASE_URL: "/",
         axios: {
             instance: window.axios,

@@ -16,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Inertia::share('$user', function (Request $request) {
-            return $request->user()
-                ? $request->user()->only('id', 'name', 'phone', 'type', 'gain')
+            return $request->user()->with('company')
+                ? $request->user()->only('id', 'name', 'phone', 'type', 'gain', 'company', 'credit')
                 : null;
         });
     }

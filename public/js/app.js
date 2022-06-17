@@ -4273,7 +4273,7 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest"; // 
 vue__WEBPACK_IMPORTED_MODULE_5___default().use(majra__WEBPACK_IMPORTED_MODULE_4__["default"], {
   store: _store_index__WEBPACK_IMPORTED_MODULE_3__["default"],
   configs: {
-    FILTER_URL: "/api/filter",
+    FILTER_URL: "/api/admin/filter",
     BASE_URL: "/",
     axios: {
       instance: window.axios
@@ -74599,6 +74599,14 @@ var map = {
 		"./resources/js/Pages/Admin/Meal/Index.vue",
 		"resources_js_Pages_Admin_Meal_Index_vue"
 	],
+	"./Admin/Reserve/Index": [
+		"./resources/js/Pages/Admin/Reserve/Index.vue",
+		"resources_js_Pages_Admin_Reserve_Index_vue"
+	],
+	"./Admin/Reserve/Index.vue": [
+		"./resources/js/Pages/Admin/Reserve/Index.vue",
+		"resources_js_Pages_Admin_Reserve_Index_vue"
+	],
 	"./Admin/User/Index": [
 		"./resources/js/Pages/Admin/User/Index.vue",
 		"resources_js_Pages_Admin_User_Index_vue"
@@ -74606,6 +74614,14 @@ var map = {
 	"./Admin/User/Index.vue": [
 		"./resources/js/Pages/Admin/User/Index.vue",
 		"resources_js_Pages_Admin_User_Index_vue"
+	],
+	"./User/Profile/Index": [
+		"./resources/js/Pages/User/Profile/Index.vue",
+		"resources_js_Pages_User_Profile_Index_vue"
+	],
+	"./User/Profile/Index.vue": [
+		"./resources/js/Pages/User/Profile/Index.vue",
+		"resources_js_Pages_User_Profile_Index_vue"
 	]
 };
 function webpackAsyncContext(req) {
@@ -74797,7 +74813,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/" + chunkId + ".js?id=" + {"node_modules_majra_src_components_dynamicForm_DynamicDialogForm_vue":"c98c24976c63749a","node_modules_majra_src_components_DynamicFilter_vue":"9c9f4aa97e327a0b","node_modules_majra_src_components_DynamicList_vue":"1a2ed600c682edba","node_modules_majra_src_components_DynamicHeader_vue":"34bf9c325222efb0","node_modules_majra_src_components_dynamicForm_DynamicTabForm_vue":"bdcb83334a90a23e","node_modules_majra_src_components_dialogs_ShowDialog_vue":"658ff72c1ef08ee9","node_modules_majra_src_components_dialogs_DeleteDialog_vue":"66ceaf234eacbed2","node_modules_majra_src_components_fields_Autocomplete_vue":"dcc48027558799e4","node_modules_majra_src_components_fields_Date_vue":"aae855fdd88c65f5","node_modules_majra_src_components_fields_File_vue":"cc0df54ff6827fc0","node_modules_majra_src_components_fields_TextField_vue":"8b045ef4989a2261","node_modules_majra_src_components_fields_TextArea_vue":"6fca5b026449ae5f","node_modules_majra_src_components_fields_Combobox_vue":"b3eee029d52fdf7f","node_modules_majra_src_components_fields_Mapper_vue":"f5970aa49f547fa1","node_modules_majra_src_components_fields_Checkbox_vue":"5e5883a916a4fb7a","node_modules_majra_src_components_fields_Ckeditor_vue":"d984cbcf574d6cfa","node_modules_majra_src_components_fields_Switcher_vue":"241a1e46649582ba","node_modules_majra_src_components_fields_ColorPicker_vue":"9c21a6b9f8fe5170","node_modules_majra_src_components_fields_Radio_vue":"bec0affb54bd30aa","node_modules_majra_src_components_fields_Cropper_vue":"0b0dfba4ac02e60d","node_modules_majra_src_components_fields_UploadBox_vue":"314027baabb0e6fe","node_modules_majra_src_components_list_shows_DefaultShow_vue":"55a801eeb1aa2449","node_modules_majra_src_components_list_shows_EditorShow_vue":"0827535355c7e145","node_modules_majra_src_components_list_shows_FileShow_vue":"ae9d208d95e48049","node_modules_majra_src_components_list_shows_MapShow_vue":"7c49ee7d0101d21d","resources_js_Pages_Admin_Category_Index_vue":"f69a557b1d2fd005","resources_js_Pages_Admin_Company_Index_vue":"df5b1fa728c3b061","resources_js_Pages_Admin_Dashboard_vue":"ae8a1ec567546357","resources_js_Pages_Admin_Food_Index_vue":"feacbd10967df32f","resources_js_Pages_Admin_Meal_Index_vue":"85f25decce3f60a1","resources_js_Pages_Admin_User_Index_vue":"eb678decbd801035","node_modules_majra_src_components_list_headers_HeaderList_vue":"4ae96a2e681a80ae","node_modules_majra_src_components_list_values_ValuesList_vue":"84ec4203ab967e01","node_modules_vuedraggable_dist_vuedraggable_umd_js":"b02aa81b666fb348","node_modules_vue-json-csv_dist_vue-json-csv_common_js":"05e602d4d33aabc3","node_modules_majra_src_components_utilities_Map_vue":"d1b77b71f24102ac","node_modules_majra_src_components_utilities_Editor_vue":"d99d1a2e9badb60c","node_modules_majra_src_components_list_headers_DateHeader_vue":"40bcfabe114c4546","node_modules_majra_src_components_list_headers_DefaultHeader_vue":"51b7bad10951b7b3","node_modules_majra_src_components_list_headers_SelectHeader_vue":"f77eb6d43e89d776","node_modules_majra_src_components_list_headers_SwitcherHeader_vue":"950db3f388068727","node_modules_majra_src_components_list_values_DateValue_vue":"582e3cc499c402ca","node_modules_majra_src_components_list_values_FileValue_vue":"7e438d1963e6a769","node_modules_majra_src_components_list_values_SelectValue_vue":"7fe15367c81d6f8f","node_modules_majra_src_components_list_values_TextValue_vue":"197f03e2dec956a3"}[chunkId] + "";
+/******/ 			return "js/" + chunkId + ".js?id=" + {"node_modules_majra_src_components_dynamicForm_DynamicDialogForm_vue":"c98c24976c63749a","node_modules_majra_src_components_DynamicFilter_vue":"9c9f4aa97e327a0b","node_modules_majra_src_components_DynamicList_vue":"1a2ed600c682edba","node_modules_majra_src_components_DynamicHeader_vue":"34bf9c325222efb0","node_modules_majra_src_components_dynamicForm_DynamicTabForm_vue":"bdcb83334a90a23e","node_modules_majra_src_components_dialogs_ShowDialog_vue":"658ff72c1ef08ee9","node_modules_majra_src_components_dialogs_DeleteDialog_vue":"66ceaf234eacbed2","node_modules_majra_src_components_fields_Autocomplete_vue":"dcc48027558799e4","node_modules_majra_src_components_fields_Date_vue":"aae855fdd88c65f5","node_modules_majra_src_components_fields_File_vue":"cc0df54ff6827fc0","node_modules_majra_src_components_fields_TextField_vue":"8b045ef4989a2261","node_modules_majra_src_components_fields_TextArea_vue":"6fca5b026449ae5f","node_modules_majra_src_components_fields_Combobox_vue":"b3eee029d52fdf7f","node_modules_majra_src_components_fields_Mapper_vue":"f5970aa49f547fa1","node_modules_majra_src_components_fields_Checkbox_vue":"5e5883a916a4fb7a","node_modules_majra_src_components_fields_Ckeditor_vue":"d984cbcf574d6cfa","node_modules_majra_src_components_fields_Switcher_vue":"241a1e46649582ba","node_modules_majra_src_components_fields_ColorPicker_vue":"9c21a6b9f8fe5170","node_modules_majra_src_components_fields_Radio_vue":"bec0affb54bd30aa","node_modules_majra_src_components_fields_Cropper_vue":"0b0dfba4ac02e60d","node_modules_majra_src_components_fields_UploadBox_vue":"314027baabb0e6fe","node_modules_majra_src_components_list_shows_DefaultShow_vue":"55a801eeb1aa2449","node_modules_majra_src_components_list_shows_EditorShow_vue":"0827535355c7e145","node_modules_majra_src_components_list_shows_FileShow_vue":"ae9d208d95e48049","node_modules_majra_src_components_list_shows_MapShow_vue":"7c49ee7d0101d21d","resources_js_Pages_Admin_Category_Index_vue":"7ea058fdf4901e16","resources_js_Pages_Admin_Company_Index_vue":"1d415817b2e2affd","resources_js_Pages_Admin_Dashboard_vue":"77c7c1f81b8de57b","resources_js_Pages_Admin_Food_Index_vue":"d70d504fab8ad68f","resources_js_Pages_Admin_Meal_Index_vue":"7442c238662a384e","resources_js_Pages_Admin_Reserve_Index_vue":"99adb0e685a22215","resources_js_Pages_Admin_User_Index_vue":"a254fda3d055a858","resources_js_Pages_User_Profile_Index_vue":"201838855fbab86d","node_modules_majra_src_components_list_headers_HeaderList_vue":"4ae96a2e681a80ae","node_modules_majra_src_components_list_values_ValuesList_vue":"84ec4203ab967e01","node_modules_vuedraggable_dist_vuedraggable_umd_js":"b02aa81b666fb348","node_modules_vue-json-csv_dist_vue-json-csv_common_js":"05e602d4d33aabc3","node_modules_majra_src_components_utilities_Map_vue":"d1b77b71f24102ac","node_modules_majra_src_components_utilities_Editor_vue":"d99d1a2e9badb60c","node_modules_majra_src_components_list_headers_DateHeader_vue":"40bcfabe114c4546","node_modules_majra_src_components_list_headers_DefaultHeader_vue":"51b7bad10951b7b3","node_modules_majra_src_components_list_headers_SelectHeader_vue":"f77eb6d43e89d776","node_modules_majra_src_components_list_headers_SwitcherHeader_vue":"950db3f388068727","node_modules_majra_src_components_list_values_DateValue_vue":"582e3cc499c402ca","node_modules_majra_src_components_list_values_FileValue_vue":"7e438d1963e6a769","node_modules_majra_src_components_list_values_SelectValue_vue":"7fe15367c81d6f8f","node_modules_majra_src_components_list_values_TextValue_vue":"197f03e2dec956a3"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	
