@@ -162,11 +162,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Loading: majra__WEBPACK_IMPORTED_MODULE_0__.Loading,
     Alert: majra__WEBPACK_IMPORTED_MODULE_0__.Alert,
     "inertia-link": _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_1__.Link
   },
@@ -182,8 +186,8 @@ __webpack_require__.r(__webpack_exports__);
         link: "/admin/dashboard",
         icon: "mdi mdi-view-dashboard"
       }, {
-        title: "دسته بندی ها",
-        link: "/admin/categories",
+        title: "مخلفات و پیش غذا ها",
+        link: "/admin/sundries",
         icon: "mdi mdi-menu"
       }, {
         title: "غذا ها",
@@ -233,7 +237,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.v-main,\ntr:nth-child(even) {\n    background-color: #f5f5f5;\n}\n.v-application,\n.v-application .caption,\n.v-application .text-h3,\n.v-application .text-h4,\n.v-application .text-h2,\n.v-application .text-h5,\n.v-application .text-h6,\n.v-application .text-caption,\n.v-application .text-overline,\n.v-application .text-body-2,\n.v-application .text-button,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.headline {\n    font-family: \"iransans\" !important;\n}\n.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled),\n.theme--light.v-application {\n    color: rgba(0, 0, 0, 0.6);\n}\n* {\n    letter-spacing: normal;\n}\na,\na:active,\na:visited {\n    text-decoration: none !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.v-main,\ntr:nth-child(even) {\n  background-color: #f5f5f5;\n}\n.v-application,\n.v-application .caption,\n.v-application .text-h3,\n.v-application .text-h4,\n.v-application .text-h2,\n.v-application .text-h5,\n.v-application .text-h6,\n.v-application .text-caption,\n.v-application .text-overline,\n.v-application .text-body-2,\n.v-application .text-button,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.headline {\n  font-family: \"iransans\" !important;\n}\n.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled),\n.theme--light.v-application {\n  color: rgba(0, 0, 0, 0.6);\n}\n* {\n  letter-spacing: normal;\n}\na,\na:active,\na:visited {\n  text-decoration: none !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -759,9 +763,9 @@ var render = function () {
                         _vm._v(" "),
                         _c("p", { staticClass: "caption mt-1" }, [
                           _vm._v(
-                            "\n                            " +
+                            "\n              " +
                               _vm._s(_vm.$page.props.$user.phone) +
-                              "\n                        "
+                              "\n            "
                           ),
                         ]),
                         _vm._v(" "),
@@ -808,8 +812,6 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("Alert"),
-      _vm._v(" "),
-      _c("Loading"),
     ],
     1
   )

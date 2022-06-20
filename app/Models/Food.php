@@ -15,8 +15,8 @@ class Food extends Model
         'id'
     ];
 
-    public function category()
+    public function sundries()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Sundry::class);
     }
 }

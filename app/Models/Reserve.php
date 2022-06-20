@@ -13,11 +13,13 @@ class Reserve extends Model
         'id',
     ];
 
-    public function meal(){
-        return $this->belongsTo(Meal::class);
+    public function meal()
+    {
+        return $this->belongsTo(Meal::class, 'food_date_id');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

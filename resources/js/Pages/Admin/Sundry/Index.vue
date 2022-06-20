@@ -13,10 +13,11 @@ export default {
 
   created() {
     this.$majra.init({
-      mainRoute: "/admin/food",
+      mainRoute: "/admin/sundry",
+      relations: ["/admin/food"],
       fields: [
         {
-          title: "نام غذا",
+          title: "نام",
           field: "name",
           type: "text",
           isHeader: true,
@@ -33,6 +34,23 @@ export default {
           rules: ["required"],
           isHeader: true,
           col: { md: 6 },
+        },
+        {
+          title: "غذا",
+          field: "food_id",
+          rel: {
+            model: "Food",
+          },
+          type: "select",
+          isHeader: true,
+          rules: ["required"],
+          props: {
+            "item-text": "name",
+            "item-value": "id",
+          },
+          inList(value, instance) {
+            return instance.food.name;
+          },
         },
       ],
     });

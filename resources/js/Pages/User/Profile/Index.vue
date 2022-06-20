@@ -35,7 +35,7 @@
                 </v-btn>
               </Link>
               <div class="d-flex">
-                <span>{{ persianDate }}</span>
+                <span>{{ persianDate(time) }}</span>
                 <span v-if="isToday" class="mr-2"> (هفته جاری)</span>
                 <span v-else="isToday" class="mr-2">
                   ({{ Math.abs(week) }} هفته {{ week > 0 ? "بعد" : "قبل" }})</span
@@ -53,29 +53,103 @@
             <v-divider></v-divider>
           </v-col>
 
-          <template v-for="day in company.business_days">
-            <v-col cols="12" :key="day">
-              {{ weekMap[day] }}
-            </v-col>
-            <v-col cols="12" class="pa-0" :key="'a' + day">
-              <v-divider></v-divider>
-            </v-col>
-          </template>
+          <v-col cols="12 pa-0" :key="day">
+            <table class="col-12 pa-0">
+              <thead>
+                <tr>
+                  <td>روز</td>
+                  <td>ناهار</td>
+                  <td>شام</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="day in company.business_days">
+                  <td>
+                    <span>{{ weekMap[day].name }}</span>
+                    <span class="caption">({{ persianDate(weekMap[day].date) }})</span>
+                  </td>
+                  <td>
+                    <v-btn
+                      small
+                      color="primary"
+                      :text="checkReserve({ day, meal: 'lunch' })"
+                      @click="chooseMeal({ day, meal: 'lunch' })"
+                    >
+                      {{ checkReserve({ day, meal: "lunch" }) || "انتخاب" }}
+                    </v-btn>
+                  </td>
+                  <td>
+                    <v-btn
+                      small
+                      color="primary"
+                      :text="checkReserve({ day, meal: 'dinner' })"
+                      @click="chooseMeal({ day, meal: 'dinner' })"
+                    >
+                      {{ checkReserve({ day, meal: "dinner" }) || "انتخاب" }}
+                    </v-btn>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </v-col>
         </v-row>
       </v-container>
     </v-main>
+
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span>انتخاب غذا</span>
+          <v-spacer></v-spacer>
+          <v-btn icon color="error" @click="dialog = false">
+            <v-icon>mdi mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-card outlined rounded>
+            <v-card-title>غذا ها</v-card-title>
+            <v-card-text>
+              <div class="d-flex flex-column">
+                <div
+                  v-for="meal in selectedMeal"
+                  class="d-flex align-center justify-space-between my-2"
+                >
+                  <span>{{ meal.food.name }}</span>
+                  <span>{{ meal.price }}</span>
+                  <v-btn
+                    @click="reserve(meal)"
+                    icon
+                    :color="meal.is_reserved ? 'error' : 'green'"
+                  >
+                    <v-icon v-if="!meal.is_reserved">mdi mdi-check</v-icon>
+                    <v-icon v-else>mdi mdi-close</v-icon>
+                  </v-btn>
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <Alert />
   </v-app>
 </template>
 
 <script>
 import { Link } from "@inertiajs/inertia-vue";
+import { Alert } from "majra";
+import { get as getSafe } from "lodash";
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
-  components: { Link },
+  components: { Link, Alert },
 
   props: ["meals", "time", "foods", "company", "week", "startOfWeek"],
 
   data: () => ({
+    dialog: false,
+    selectedMeal: {},
     weekMap: {
       shanbe: { name: "شنبه" },
       yekshanbe: { name: "یکشنبه" },
@@ -87,16 +161,19 @@ export default {
     },
   }),
 
-  computed: {
-    getPlan(){
-        this.weekMap.shanbe.date = startOfWeek;
-        for(const nameOfWeek in this.weekMap){
+  beforeCreate() {
+    Date.prototype.addDays = function (days) {
+      var date = new Date(this.valueOf());
+      date.setDate(date.getDate() + days);
+      return date;
+    };
+  },
 
-        }
-    },
-    persianDate() {
-      return new Date(this.time).toLocaleDateString("fa-IR");
-    },
+  created() {
+    this.makePlan();
+  },
+
+  computed: {
     isToday() {
       let serverDate = new Date(this.time);
       let today = new Date();
@@ -106,6 +183,59 @@ export default {
         serverDate.getMonth() === today.getMonth() &&
         serverDate.getDate() === today.getDate()
       );
+    },
+  },
+
+  methods: {
+    persianDate(date) {
+      return new Date(date).toLocaleDateString("fa-IR");
+    },
+    reserve(meal) {
+      axios.post("/profile", { meal_id: meal.id }).then((response) => {
+        this.dialog = false;
+        this._event("alert", { text: "با موفقیت رزرو شد", color: "success" });
+        Inertia.reload()
+      });
+    },
+    checkReserve({ meal, day }) {
+      const key = this.weekMap[day].standardDate;
+      const selectedMeal = getSafe(this.meals, key + "." + meal, []);
+      for (const meal of selectedMeal) {
+        if (meal.is_reserved) {
+          return meal.food.name;
+        }
+      }
+      return false;
+    },
+    chooseMeal({ meal, day }) {
+      const key = this.weekMap[day].standardDate;
+      const selectedMeal = getSafe(this.meals, key + "." + meal);
+      if (!selectedMeal) {
+        return this._event("alert", {
+          text: "وعده غذایی تعریف نشده است.",
+          color: "error",
+        });
+      }
+      this.selectedMeal = selectedMeal;
+      this.dialog = true;
+    },
+    makePlan() {
+      let i = 0;
+      let startOfWeek = new Date(this.startOfWeek);
+      for (const nameOfWeek in this.weekMap) {
+        let date = startOfWeek.addDays(i++);
+        this.weekMap[nameOfWeek].date = date;
+        const month = +date.getMonth() + 1;
+        const day = +date.getDate();
+        const year = +date.getFullYear();
+
+        this.weekMap[nameOfWeek].standardDate =
+          year +
+          "-" +
+          ((month > 9 ? "" : "0") + month) +
+          "-" +
+          ((day > 9 ? "" : "0") + day);
+      }
     },
   },
 };
@@ -137,5 +267,17 @@ a,
 a:active,
 a:visited {
   text-decoration: none !important;
+}
+
+td {
+  padding: 10px 5px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 </style>

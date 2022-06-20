@@ -15,22 +15,35 @@ class ProfileController extends Controller
 
         $startOfWeek = (new Verta($time))->startWeek()->toCarbon();
 
-        $meals = Meal::with(['food.category'])
-            ->whereBetween('show_date', [$startOfWeek->format('Y-m-d'), $startOfWeek->addDays(7)->format('Y-m-d')])
-            ->get()
-            ->groupBy('show_date');
+        $tmpStartOfWeek = clone $startOfWeek;
 
-        $foods = $meals->pluck('food')->groupBy('category.name');
+        $meals = Meal::with(['food.sundries'])
+            ->whereBetween('show_date', [$tmpStartOfWeek->format('Y-m-d'), $tmpStartOfWeek->addDays(7)->format('Y-m-d')])
+            ->get()
+            ->groupBy(['show_date', 'meal']);
 
         $company = $request->user()->company;
 
         return inertia('User/Profile/Index', [
             'meals' => $meals,
             'time' => $time,
-            'foods' => $foods,
             'company' => $company,
             'startOfWeek' => $startOfWeek,
             'week' => $request->week ?? 0
         ]);
+    }
+
+    public function reserve(Request $request)
+    {
+        $meal = Meal::findOrFail($request->meal_id);
+
+        $meal->reserves()->create([
+            'food_date_id' => $meal->id,
+            'user_id' => auth()->id(),
+            'number' => 1,
+            'price' => $meal->price,
+        ]);
+
+        return ['message' => 'ok'];
     }
 }

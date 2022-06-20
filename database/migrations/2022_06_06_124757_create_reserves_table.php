@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('number');
             $table->unsignedBigInteger('price');
             $table->timestamps();
+
+            $table->unique(['user_id','food_date_id'])
         });
     }
 
