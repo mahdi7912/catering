@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reserves', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('food_date_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('number');
-            $table->unsignedBigInteger('price');
+            $table->string('amount');
+            $table->string('status');
+            $table->string('factor');
             $table->timestamps();
-
-            $table->unique(['user_id','food_date_id']);
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reserves');
+        Schema::dropIfExists('table_payments');
     }
 };

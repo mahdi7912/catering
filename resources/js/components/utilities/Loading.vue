@@ -1,6 +1,6 @@
 <template>
   <v-overlay z-index="500" :value="loading">
-    <v-icon class="mx-auto">fal fa-spinner fa-spin</v-icon>
+    <v-icon class="mx-auto">mdi mdi-loading mdi-spin</v-icon>
   </v-overlay>
 </template>
 

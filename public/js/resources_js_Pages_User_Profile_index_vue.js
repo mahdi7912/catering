@@ -172,6 +172,41 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -187,6 +222,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       dialog: false,
+      creditDialog: false,
+      credit: false,
+      validCredit: false,
       selectedMeal: [],
       weekMap: {
         shanbe: {
@@ -244,22 +282,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return meal.is_past;
       }) > -1;
     },
-    reserve: function reserve(meal) {
+    addCredit: function addCredit() {
       var _this = this;
+
+      if (!this.validCredit) return;
 
       this._event("loading", true);
 
-      axios.post("/profile", {
-        meal_id: meal.id
+      axios.post("/credit", {
+        credit: this.credit
       }).then(function (response) {
-        _this.dialog = false;
-
-        _this._event("alert", {
-          text: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(response, "data.message"),
-          color: "success"
-        });
-
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.reload();
+        window.location = (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(response, "data.action");
       })["catch"](function (error) {
         _this._event("alert", {
           text: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(error, "response.data.message"),
@@ -267,6 +300,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         });
       })["finally"](function () {
         _this._event("loading", false);
+      });
+    },
+    reserve: function reserve(meal) {
+      var _this2 = this;
+
+      this._event("loading", true);
+
+      axios.post("/profile", {
+        meal_id: meal.id
+      }).then(function (response) {
+        _this2.dialog = false;
+
+        _this2._event("alert", {
+          text: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(response, "data.message"),
+          color: "success"
+        });
+
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.reload();
+      })["catch"](function (error) {
+        _this2._event("alert", {
+          text: (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(error, "response.data.message"),
+          color: "error"
+        });
+      })["finally"](function () {
+        _this2._event("loading", false);
       });
     },
     checkReserve: function checkReserve(_ref) {
@@ -380,7 +438,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.v-application,\n.v-application .caption,\n.v-application .text-h3,\n.v-application .text-h4,\n.v-application .text-h2,\n.v-application .text-h5,\n.v-application .text-h6,\n.v-application .text-caption,\n.v-application .text-overline,\n.v-application .text-body-2,\n.v-application .text-button,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.headline {\n  font-family: \"iransans\" !important;\n}\na,\na:active,\na:visited {\n  text-decoration: none !important;\n}\ntd {\n  padding: 10px 5px;\n}\ntable {\n  border-collapse: collapse;\n}\ntd {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.12);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.v-application,\n.v-application .caption,\n.v-application .text-h3,\n.v-application .text-h4,\n.v-application .text-h2,\n.v-application .text-h5,\n.v-application .text-h6,\n.v-application .text-caption,\n.v-application .text-overline,\n.v-application .text-body-2,\n.v-application .text-button,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\n.headline {\n  font-family: \"iransans\" !important;\n}\ntd {\n  padding: 10px 5px;\n}\ntable {\n  border-collapse: collapse;\n}\ntd {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.12);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17872,6 +17930,11 @@ var render = function () {
                             {
                               staticClass: "success py-1 px-2 mr-2",
                               attrs: { small: "", elevation: "0", dark: "" },
+                              on: {
+                                click: function ($event) {
+                                  _vm.creditDialog = true
+                                },
+                              },
                             },
                             [
                               _c("v-icon", { attrs: { small: "" } }, [
@@ -18222,6 +18285,109 @@ var render = function () {
         1
       ),
       _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "500px" },
+          model: {
+            value: _vm.creditDialog,
+            callback: function ($$v) {
+              _vm.creditDialog = $$v
+            },
+            expression: "creditDialog",
+          },
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-card-title",
+                [
+                  _c("span", [_vm._v("افزایش اعتبار")]),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { icon: "", color: "error" },
+                      on: {
+                        click: function ($event) {
+                          _vm.creditDialog = false
+                        },
+                      },
+                    },
+                    [_c("v-icon", [_vm._v("mdi mdi-close")])],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-form",
+                    {
+                      model: {
+                        value: _vm.validCredit,
+                        callback: function ($$v) {
+                          _vm.validCredit = $$v
+                        },
+                        expression: "validCredit",
+                      },
+                    },
+                    [
+                      _c("v-text-field", {
+                        staticClass: "mt-3",
+                        attrs: {
+                          outlined: "",
+                          dense: "",
+                          label: "میزان افزایش (تومان)",
+                          type: "number",
+                          required: "",
+                          rules: [
+                            function (val) {
+                              return (
+                                val > 2000 ||
+                                "میزان افزایش باید بزرگتر از 2000 باشد"
+                              )
+                            },
+                          ],
+                        },
+                        model: {
+                          value: _vm.credit,
+                          callback: function ($$v) {
+                            _vm.credit = $$v
+                          },
+                          expression: "credit",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          staticClass: "px-6",
+                          attrs: { small: "", color: "success" },
+                          on: { click: _vm.addCredit },
+                        },
+                        [_vm._v("افزایش اعتبار")]
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("Alert"),
       _vm._v(" "),
       _c("Loading"),
@@ -18257,7 +18423,7 @@ var render = function () {
     { attrs: { "z-index": "500", value: _vm.loading } },
     [
       _c("v-icon", { staticClass: "mx-auto" }, [
-        _vm._v("fal fa-spinner fa-spin"),
+        _vm._v("mdi mdi-loading mdi-spin"),
       ]),
     ],
     1

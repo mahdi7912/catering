@@ -7,11 +7,15 @@ use App\Http\Controllers\api\ReserveController;
 use App\Http\Controllers\api\SundryController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\user\CreditController;
 use App\Http\Controllers\user\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('/profile', [ProfileController::class, 'reserve'])->name('reserve');
+
+Route::post('/credit', [CreditController::class, 'pay']);
+Route::get('/credit/verification', [CreditController::class, 'verification']);
 
 // Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {

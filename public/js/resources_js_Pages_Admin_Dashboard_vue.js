@@ -741,7 +741,7 @@ var render = function () {
     { attrs: { "z-index": "500", value: _vm.loading } },
     [
       _c("v-icon", { staticClass: "mx-auto" }, [
-        _vm._v("fal fa-spinner fa-spin"),
+        _vm._v("mdi mdi-loading mdi-spin"),
       ]),
     ],
     1

@@ -8,3 +8,9 @@
     font-style: normal;
 }
 
+a,
+a:active,
+a:visited {
+  text-decoration: none !important;
+}
+

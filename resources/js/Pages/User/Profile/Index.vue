@@ -17,7 +17,13 @@
                 <span>{{ $page.props.$user.credit / 1000 }}</span>
                 <span> هزار تومان </span>
               </div>
-              <v-btn small elevation="0" class="success py-1 px-2 mr-2" dark>
+              <v-btn
+                small
+                elevation="0"
+                class="success py-1 px-2 mr-2"
+                dark
+                @click="creditDialog = true"
+              >
                 <v-icon small>mdi mdi-plus</v-icon>
               </v-btn>
             </div>
@@ -142,6 +148,35 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="creditDialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span>افزایش اعتبار</span>
+          <v-spacer></v-spacer>
+          <v-btn icon color="error" @click="creditDialog = false">
+            <v-icon>mdi mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-form v-model="validCredit">
+            <v-text-field
+              v-model="credit"
+              outlined
+              dense
+              label="میزان افزایش (تومان)"
+              type="number"
+              required
+              :rules="[(val) => val > 2000 || 'میزان افزایش باید بزرگتر از 2000 باشد']"
+              class="mt-3"
+            />
+            <v-btn small color="success" class="px-6" @click="addCredit"
+              >افزایش اعتبار</v-btn
+            >
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <Alert />
     <Loading />
   </v-app>
@@ -161,6 +196,9 @@ export default {
 
   data: () => ({
     dialog: false,
+    creditDialog: false,
+    credit: false,
+    validCredit: false,
     selectedMeal: [],
     weekMap: {
       shanbe: { name: "شنبه" },
@@ -207,6 +245,25 @@ export default {
     },
     isMealPast() {
       return this.selectedMeal.findIndex((meal) => meal.is_past) > -1;
+    },
+    addCredit() {
+      if (!this.validCredit) return;
+
+      this._event("loading", true);
+      axios
+        .post("/credit", { credit: this.credit })
+        .then((response) => {
+          window.location = getSafe(response, "data.action");
+        })
+        .catch((error) => {
+          this._event("alert", {
+            text: getSafe(error, "response.data.message"),
+            color: "error",
+          });
+        })
+        .finally(() => {
+          this._event("loading", false);
+        });
     },
     reserve(meal) {
       this._event("loading", true);
@@ -294,12 +351,6 @@ h5,
 h6,
 .headline {
   font-family: "iransans" !important;
-}
-
-a,
-a:active,
-a:visited {
-  text-decoration: none !important;
 }
 
 td {
