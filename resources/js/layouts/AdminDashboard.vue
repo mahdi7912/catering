@@ -67,15 +67,17 @@
     </v-main>
 
     <Alert />
+    <Loading />
   </v-app>
 </template>
 
 <script>
 import { Alert } from "majra";
 import { Link } from "@inertiajs/inertia-vue";
+import Loading from "@/components/utilities/Loading";
 
 export default {
-  components: { Alert, "inertia-link": Link },
+  components: { Alert, "inertia-link": Link, Loading },
 
   name: "dashboard",
 

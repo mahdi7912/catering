@@ -24,4 +24,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
 }

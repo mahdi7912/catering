@@ -65,6 +65,10 @@
               <tbody>
                 <tr v-for="day in company.business_days">
                   <td>
+                    <span
+                      v-if="persianDate(weekMap[day].date) === persianDate(new Date())"
+                      ><v-icon>mdi mdi-arrow-left</v-icon></span
+                    >
                     <span>{{ weekMap[day].name }}</span>
                     <span class="caption">({{ persianDate(weekMap[day].date) }})</span>
                   </td>
@@ -107,7 +111,12 @@
         </v-card-title>
         <v-card-text>
           <v-card outlined rounded>
-            <v-card-title>غذا ها</v-card-title>
+            <v-card-title>
+              <span>غذا ها</span>
+              <span class="caption mx-2" v-if="isMealPast()"
+                >(زمان رزرو غذا در این روز به پایان رسیده)</span
+              >
+            </v-card-title>
             <v-card-text>
               <div class="d-flex flex-column">
                 <div
@@ -117,6 +126,7 @@
                   <span>{{ meal.food.name }}</span>
                   <span>{{ meal.price }}</span>
                   <v-btn
+                    :disabled="meal.is_past || !(meal.is_reserved || !hasReserve())"
                     @click="reserve(meal)"
                     icon
                     :color="meal.is_reserved ? 'error' : 'green'"
@@ -133,6 +143,7 @@
     </v-dialog>
 
     <Alert />
+    <Loading />
   </v-app>
 </template>
 
@@ -140,16 +151,17 @@
 import { Link } from "@inertiajs/inertia-vue";
 import { Alert } from "majra";
 import { get as getSafe } from "lodash";
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from "@inertiajs/inertia";
+import Loading from "@/components/utilities/Loading";
 
 export default {
-  components: { Link, Alert },
+  components: { Link, Alert, Loading },
 
   props: ["meals", "time", "foods", "company", "week", "startOfWeek"],
 
   data: () => ({
     dialog: false,
-    selectedMeal: {},
+    selectedMeal: [],
     weekMap: {
       shanbe: { name: "شنبه" },
       yekshanbe: { name: "یکشنبه" },
@@ -190,12 +202,33 @@ export default {
     persianDate(date) {
       return new Date(date).toLocaleDateString("fa-IR");
     },
+    hasReserve() {
+      return this.selectedMeal.findIndex((meal) => meal.is_reserved) > -1;
+    },
+    isMealPast() {
+      return this.selectedMeal.findIndex((meal) => meal.is_past) > -1;
+    },
     reserve(meal) {
-      axios.post("/profile", { meal_id: meal.id }).then((response) => {
-        this.dialog = false;
-        this._event("alert", { text: "با موفقیت رزرو شد", color: "success" });
-        Inertia.reload()
-      });
+      this._event("loading", true);
+      axios
+        .post("/profile", { meal_id: meal.id })
+        .then((response) => {
+          this.dialog = false;
+          this._event("alert", {
+            text: getSafe(response, "data.message"),
+            color: "success",
+          });
+          Inertia.reload();
+        })
+        .catch((error) => {
+          this._event("alert", {
+            text: getSafe(error, "response.data.message"),
+            color: "error",
+          });
+        })
+        .finally(() => {
+          this._event("loading", false);
+        });
     },
     checkReserve({ meal, day }) {
       const key = this.weekMap[day].standardDate;

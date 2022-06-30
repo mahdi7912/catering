@@ -4,7 +4,9 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Meal;
+use App\Models\Reserve;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Verta;
 
 class ProfileController extends Controller
@@ -37,6 +39,26 @@ class ProfileController extends Controller
     {
         $meal = Meal::findOrFail($request->meal_id);
 
+        $reserve = $request->user()->reserves()->where('food_date_id', $meal->id)->get();
+
+        $user = auth()->user();
+
+        if ($reserve->count() > 0) {
+            Reserve::destroy($reserve->pluck('id'));
+            $user->update([
+                'credit' => $user->credit + $meal->price
+            ]);
+            return ['message' => 'با موفقیت حذف شد'];
+        }
+
+        if($meal->price > $user->credit){
+            return response(['message' => 'اعتبار شما کافی نیست'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user->update([
+            'credit' => $user->credit - $meal->price
+        ]);
+
         $meal->reserves()->create([
             'food_date_id' => $meal->id,
             'user_id' => auth()->id(),
@@ -44,6 +66,6 @@ class ProfileController extends Controller
             'price' => $meal->price,
         ]);
 
-        return ['message' => 'ok'];
+        return ['message' => 'با موفقیت رزرو شد'];
     }
 }

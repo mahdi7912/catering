@@ -51,6 +51,12 @@ class Meal extends Model
         return ceil($price / 100) * 100;
     }
 
+    public function getIsPastAttribute()
+    {
+        return now()->addDays(1)->gt($this->show_date);
+    }
+
+
     public function toArray()
     {
         $array = parent::toArray();
@@ -60,6 +66,7 @@ class Meal extends Model
         return [
             'reserve' => $reserve,
             'is_reserved' => !!count($reserve),
+            'is_past' => $this->is_past,
             'price' => $this->price
         ] + $array;
     }
