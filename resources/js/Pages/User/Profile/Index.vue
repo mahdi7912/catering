@@ -5,13 +5,24 @@
         <v-row>
           <v-col class="d-flex flex-row align-center justify-space-between">
             <div class="d-flex align-center caption">
-              <v-icon right>mdi mdi-account-circle</v-icon>
+              <v-icon v-if="$vuetify.breakpoint.mdAndUp" right
+                >mdi mdi-account-circle</v-icon
+              >
               <div class="d-flex align-center">
-                {{ $page.props.$user.name }} -
-                {{ $page.props.$user.company.name }}
+                {{ $page.props.$user.name }}
               </div>
             </div>
             <div class="d-flex flex-row">
+              <v-btn
+                small
+                elevation="0"
+                class="primary py-1 px-2 ml-2"
+                dark
+                @click="[(fishDialog = true), createQr()]"
+              >
+                <v-icon small>mdi mdi-note-text</v-icon>
+                <span>ژتون</span>
+              </v-btn>
               <div class="rounded white--text info py-1 px-2 caption">
                 <span>اعتبار :</span>
                 <span>{{ $page.props.$user.credit / 1000 }}</span>
@@ -73,8 +84,9 @@
                   <td>
                     <span
                       v-if="persianDate(weekMap[day].date) === persianDate(new Date())"
-                      ><v-icon>mdi mdi-arrow-left</v-icon></span
                     >
+                      <v-icon>mdi mdi-arrow-left</v-icon>
+                    </span>
                     <span>{{ weekMap[day].name }}</span>
                     <span class="caption">({{ persianDate(weekMap[day].date) }})</span>
                   </td>
@@ -177,6 +189,40 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="fishDialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span>ژتون</span>
+          <v-spacer></v-spacer>
+          <v-btn icon color="error" @click="fishDialog = false">
+            <v-icon>mdi mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <div
+            class="d-flex flex-row justify-center align-center rounded"
+            v-for="toDayReserve in toDayReserves"
+          >
+            <canvas :ref="'canvas' + toDayReserve.id"></canvas>
+            <div class="d-flex flex-column">
+              <span class="rounded py-1 px-4 info white--text">
+                تاریخ : {{ new Date().toLocaleDateString("fa-IR") }}
+              </span>
+              <span class="rounded mt-1 py-1 px-4 info white--text">
+                نام غذا : {{ getSafe(toDayReserve, "food.name") }}
+              </span>
+              <span class="mt-1 rounded py-1 px-4 info white--text">
+                وعده : {{ mealMap[getSafe(toDayReserve, "meal")] }}
+              </span>
+              <span class="mt-1 rounded py-1 px-4 info white--text">
+                نام کاربر : {{ getSafe($page, "props.$user.name") }}
+              </span>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <Alert />
     <Loading />
   </v-app>
@@ -188,18 +234,25 @@ import { Alert } from "majra";
 import { get as getSafe } from "lodash";
 import { Inertia } from "@inertiajs/inertia";
 import Loading from "@/components/utilities/Loading";
+import QRCode from "qrcode";
 
 export default {
   components: { Link, Alert, Loading },
 
-  props: ["meals", "time", "foods", "company", "week", "startOfWeek"],
+  props: ["meals", "time", "foods", "company", "week", "startOfWeek", "toDayReserves"],
 
   data: () => ({
     dialog: false,
+    fishDialog: false,
     creditDialog: false,
     credit: false,
     validCredit: false,
     selectedMeal: [],
+    mealMap: {
+      breakfast: "صبحانه",
+      lunch: "نهار",
+      dinner: "شام",
+    },
     weekMap: {
       shanbe: { name: "شنبه" },
       yekshanbe: { name: "یکشنبه" },
@@ -237,6 +290,25 @@ export default {
   },
 
   methods: {
+    getSafe,
+    createQr() {
+      setTimeout(() => {
+        for (const toDayReserve of this.toDayReserves) {
+          let canvas = this.$refs["canvas" + toDayReserve.id][0];
+          console.log(canvas);
+          QRCode.toCanvas(
+            canvas,
+            getSafe(this.$page, "props.$user.name") +
+              " - " +
+              this.mealMap[getSafe(toDayReserve, "meal")] +
+              " - " +
+              getSafe(toDayReserve, "food.name") +
+              " - " +
+              new Date().toLocaleDateString("fa-IR")
+          );
+        }
+      }, 500);
+    },
     persianDate(date) {
       return new Date(date).toLocaleDateString("fa-IR");
     },

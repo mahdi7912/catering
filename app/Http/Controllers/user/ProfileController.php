@@ -26,10 +26,16 @@ class ProfileController extends Controller
 
         $company = $request->user()->company;
 
+        $toDayReserves = Meal::with('food')
+            ->whereHas('reserves', fn ($q) => $q->where('user_id', auth()->id()))
+            ->whereDate('show_date', now())
+            ->get();
+
         return inertia('User/Profile/Index', [
             'meals' => $meals,
             'time' => $time,
             'company' => $company,
+            'toDayReserves' => $toDayReserves,
             'startOfWeek' => $startOfWeek,
             'week' => $request->week ?? 0
         ]);
@@ -51,7 +57,7 @@ class ProfileController extends Controller
             return ['message' => 'با موفقیت حذف شد'];
         }
 
-        if($meal->price > $user->credit){
+        if ($meal->price > $user->credit) {
             return response(['message' => 'اعتبار شما کافی نیست'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 

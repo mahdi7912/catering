@@ -27,7 +27,7 @@ class Meal extends Model
 
     public function userReserve()
     {
-        return $this->reserves()->where('user_id', auth()->id())->get();
+        return $this->reserves()->where('user_id', auth()->id())->first();
     }
 
     public function getPriceAttribute()
@@ -63,11 +63,11 @@ class Meal extends Model
     {
         $array = parent::toArray();
 
-        $reserve = $this->userReserve()->toArray();
+        $reserve = $this->userReserve();
 
         return [
             'reserve' => $reserve,
-            'is_reserved' => !!count($reserve),
+            'is_reserved' => !!$reserve,
             'is_past' => $this->is_past,
             'price' => $this->price
         ] + $array;
