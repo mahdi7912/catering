@@ -219,6 +219,12 @@
               </span>
             </div>
           </div>
+
+          <div v-if="toDayReserves.length == 0">
+            <h4 class="text-center">
+              <v-icon>mdi mdi-alert</v-icon><span>متاسفانه امروز غذایی رزرو نکردی</span>
+            </h4>
+          </div>
         </v-card-text>
       </v-card>
     </v-dialog>

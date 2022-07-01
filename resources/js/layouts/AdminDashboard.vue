@@ -36,7 +36,7 @@
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-avatar color="#f8f9fb" size="30">
-              <v-icon small>md-account</v-icon>
+              <v-icon small>mdi mdi-account</v-icon>
             </v-avatar>
           </v-btn>
         </template>

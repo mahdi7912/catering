@@ -10,26 +10,36 @@
                 <v-icon size="18">fal fa-users</v-icon>
                 <span v-text="'برنامه پخت غذا'" />
               </v-card-text>
-              <v-card-actions class="indigo darken-2">
+              <v-card-text class="indigo justify-center darken-2 d-flex">
                 <div
-                  v-for="(mealsGroup, key) in meals"
-                  :key="key"
+                  v-for="(mealsGroups, key) in meals"
                   style="border: 1px solid white"
-                  class="mx-2 rounded pa-3"
+                  class="ma-2 col-12 col-lg-3 rounded pa-3"
                 >
                   <span>{{ new Date(key).toLocaleDateString("fa-IR") }}</span>
                   <v-divider class="my-2" />
                   <div
-                    v-for="(meal, key) in mealsGroup"
-                    :key="meal.id"
+                    v-for="(mealsGroup, mealName) in mealsGroups"
                     class="d-block"
-                    style="border-bottom:1px solid rgba(255,255,255,0.2)"
                   >
-                    <span class="rounded mx-2 pa-2 light">نام غذا : {{ meal.food.name }}</span>
-                    <span class="rounded mx-2 pa-2 light">تعداد : {{ meal.reserve.length }}</span>
+                    <span class="px-2 rounded white elevation-2 black--text">
+                      {{ map[mealName] }}
+                    </span>
+                    <div
+                      v-for="(meal, foodName) in mealsGroup"
+                      class="d-block my-2"
+                      style="border-bottom: 1px solid rgba(255, 255, 255, 0.2)"
+                    >
+                      <span class="rounded mx-2 pa-2 light">
+                        نام غذا : {{ foodName }}
+                      </span>
+                      <span class="rounded mx-2 pa-2 light">
+                        تعداد : {{ getSafe(meal[0], "reserves", []).length }}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </v-card-actions>
+              </v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -40,6 +50,7 @@
 
 <script>
 import Layout from "@/layouts/AdminDashboard";
+import { get as getSafe } from "lodash";
 
 export default {
   name: "Dashboard",
@@ -49,6 +60,16 @@ export default {
   },
 
   components: { Layout },
+
+  data: () => ({
+    map: {
+      breakfast: "صبحانه",
+      lunch: "ناهار",
+      dinner: "شام",
+    },
+  }),
+
+  methods: { getSafe },
 
   created() {
     console.log(this.meals);

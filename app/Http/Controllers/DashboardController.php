@@ -9,11 +9,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $meals = Meal::where('show_date', '>=', now())
-            ->with(['food'])
-            ->get()
-            ->groupBy('show_date');
+        $meals = Meal::whereDate('show_date', '>=', now())
+            ->with(['food', 'reserves.user.company'])
+            ->whereHas('reserves')
+            ->get();
 
-        return inertia('Admin/Dashboard', compact('meals'));
+        $meals = $meals->groupBy(['show_date', 'meal', 'food.name']);
+
+        $companyReserves = $meals->pluck('reserves')->flatten()->groupBy('user.company.name');
+
+
+        return inertia('Admin/Dashboard', compact('meals', 'companyReserves'));
     }
 }

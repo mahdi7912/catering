@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Layout from "@/layouts/AdminDashboard";
+import Layout from "@/layouts/CompanyDashboard";
 import { DynamicTemplate } from "majra";
 
 export default {
@@ -13,7 +13,7 @@ export default {
 
   created() {
     this.$majra.init({
-      mainRoute: "/admin/company",
+      mainRoute: "/company/company",
       hiddenActions: ["create", "delete"],
       fields: [
         {

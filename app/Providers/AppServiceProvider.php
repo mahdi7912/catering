@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Inertia::share('$user', function (Request $request) {
+            if (!$request->user()) return;
+
             return $request->user()->with('company')
                 ? $request->user()->only('id', 'name', 'phone', 'type', 'gain', 'company', 'credit')
                 : null;
@@ -29,6 +31,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        auth()->loginUsingId(1);
     }
 }

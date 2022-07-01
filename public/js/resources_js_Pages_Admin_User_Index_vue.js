@@ -753,7 +753,7 @@ var render = function () {
                             { attrs: { color: "#f8f9fb", size: "30" } },
                             [
                               _c("v-icon", { attrs: { small: "" } }, [
-                                _vm._v("md-account"),
+                                _vm._v("mdi mdi-account"),
                               ]),
                             ],
                             1
