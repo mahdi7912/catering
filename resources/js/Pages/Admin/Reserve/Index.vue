@@ -7,6 +7,7 @@
 <script>
 import Layout from "@/layouts/AdminDashboard";
 import { DynamicTemplate } from "majra";
+import { get as getSafe } from "lodash";
 
 export default {
   components: { DynamicTemplate, Layout },
@@ -15,6 +16,7 @@ export default {
     this.$majra.init({
       mainRoute: "/admin/reserve",
       relations: ["/admin/meal"],
+      hiddenActions: ["create", "edit", "delete"],
       fields: [
         {
           title: "تعداد",
@@ -39,9 +41,18 @@ export default {
           col: { md: 6 },
         },
         {
+          title: "کاربر",
+          field: "user",
+          type: "text",
+          isHeader: true,
+          inList(user) {
+            return user.name + '  -  ' + user.user_name;
+          },
+          col: { md: 6 },
+        },
+        {
           title: "غذا",
-          sendKey: "food_date_id",
-          field: "meal",
+          field: "food_date",
           rel: {
             model: "Meal",
           },
@@ -52,6 +63,9 @@ export default {
             "item-text": "name",
             "item-value": "id",
           },
+          inList(value, form) {
+            return getSafe(form, "meal.food.name", "--");
+          },
           col: { md: 6 },
         },
         {
@@ -60,11 +74,20 @@ export default {
           rel: false,
           type: "select",
           isHeader: true,
-          values: [
-            { text: "صبحانه", value: "breakfast" },
-            { text: "نهار", value: "lunch" },
-            { text: "شام", value: "dinner" },
-          ],
+          inList(value, form) {
+            let map = {
+              breakfast: "صبحانه",
+              lunch: "نهار",
+              dinner: "شام",
+            };
+
+            let meal = getSafe(form, "meal.meal", "--");
+
+            return map[meal];
+          },
+          props: {
+            "item-text": "meal",
+          },
         },
       ],
     });

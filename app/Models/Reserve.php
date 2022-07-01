@@ -15,7 +15,7 @@ class Reserve extends Model
 
     public function meal()
     {
-        return $this->belongsTo(Meal::class, 'food_date_id');
+        return $this->belongsTo(Meal::class, 'food_date_id', 'id');
     }
 
     public function user()

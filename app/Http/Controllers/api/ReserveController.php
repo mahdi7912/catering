@@ -10,7 +10,7 @@ class ReserveController extends Controller
 {
     public function index()
     {
-        return ['Reserve' => Reserve::with('user', 'meal')->paginate(request('allMain') ? 10000 : 15)];
+        return ['Reserve' => Reserve::with(['user', 'meal' => fn ($q) => $q->with('food')])->paginate(request('allMain') ? 10000 : 15)];
     }
 
     public function store(Request $request)

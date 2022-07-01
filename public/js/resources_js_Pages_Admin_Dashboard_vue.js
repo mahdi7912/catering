@@ -52,32 +52,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Dashboard",
   props: {
-    ordersCount: {
-      "default": 0
-    },
-    membersCount: {
-      "default": 0
-    },
-    acceptedOrderTotal: {
-      "default": 0
+    meals: {
+      "default": {}
     }
   },
   components: {
     Layout: _layouts_AdminDashboard__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  created: function created() {
+    console.log(this.meals);
   }
 });
 
@@ -566,101 +553,6 @@ var render = function () {
                 [
                   _c(
                     "v-col",
-                    { attrs: { cols: "12", lg: "2" } },
-                    [
-                      _c(
-                        "v-card",
-                        { attrs: { dark: "", color: "warning" } },
-                        [
-                          _c(
-                            "v-card-text",
-                            { staticClass: "white--text" },
-                            [
-                              _c("v-icon", { attrs: { size: "18" } }, [
-                                _vm._v("fal fa-shopping-basket"),
-                              ]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s("سفارش های امروز"),
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            { staticClass: "warning darken-2" },
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(_vm.ordersCount),
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", lg: "3" } },
-                    [
-                      _c(
-                        "v-card",
-                        { attrs: { dark: "", color: "success" } },
-                        [
-                          _c(
-                            "v-card-text",
-                            { staticClass: "white--text" },
-                            [
-                              _c("v-icon", { attrs: { size: "18" } }, [
-                                _vm._v("fal fa-sack-dollar"),
-                              ]),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(
-                                    "مجموع سفارش های تایید شده"
-                                  ),
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            { staticClass: "success darken-2" },
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(_vm.acceptedOrderTotal),
-                                },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-col",
-                    { attrs: { cols: "12", lg: "2" } },
                     [
                       _c(
                         "v-card",
@@ -675,7 +567,9 @@ var render = function () {
                               ]),
                               _vm._v(" "),
                               _c("span", {
-                                domProps: { textContent: _vm._s("اعضای شما") },
+                                domProps: {
+                                  textContent: _vm._s("برنامه پخت غذا"),
+                                },
                               }),
                             ],
                             1
@@ -684,16 +578,74 @@ var render = function () {
                           _c(
                             "v-card-actions",
                             { staticClass: "indigo darken-2" },
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c("span", {
-                                domProps: {
-                                  textContent: _vm._s(_vm.membersCount),
+                            _vm._l(_vm.meals, function (mealsGroup, key) {
+                              return _c(
+                                "div",
+                                {
+                                  key: key,
+                                  staticClass: "mx-2 rounded pa-3",
+                                  staticStyle: { border: "1px solid white" },
                                 },
-                              }),
-                            ],
-                            1
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      _vm._s(
+                                        new Date(key).toLocaleDateString(
+                                          "fa-IR"
+                                        )
+                                      )
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-divider", { staticClass: "my-2" }),
+                                  _vm._v(" "),
+                                  _vm._l(mealsGroup, function (meal, key) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: meal.id,
+                                        staticClass: "d-block",
+                                        staticStyle: {
+                                          "border-bottom":
+                                            "1px solid rgba(255,255,255,0.2)",
+                                        },
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "rounded mx-2 pa-2 light",
+                                          },
+                                          [
+                                            _vm._v(
+                                              "نام غذا : " +
+                                                _vm._s(meal.food.name)
+                                            ),
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "rounded mx-2 pa-2 light",
+                                          },
+                                          [
+                                            _vm._v(
+                                              "تعداد : " +
+                                                _vm._s(meal.reserve.length)
+                                            ),
+                                          ]
+                                        ),
+                                      ]
+                                    )
+                                  }),
+                                ],
+                                2
+                              )
+                            }),
+                            0
                           ),
                         ],
                         1
