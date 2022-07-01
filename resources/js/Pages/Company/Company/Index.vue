@@ -14,7 +14,7 @@ export default {
   created() {
     this.$majra.init({
       mainRoute: "/admin/company",
-      relations: ["/admin/user"],
+      hiddenActions: ["create", "delete"],
       fields: [
         {
           title: "نام شرکت",
@@ -33,49 +33,6 @@ export default {
           },
           rules: ["required"],
           isHeader: true,
-          col: { md: 6 },
-        },
-        {
-          title: "اعتبار",
-          field: "credit",
-          type: "text",
-          props: {
-            type: "number",
-          },
-          isHeader: true,
-          col: { md: 6 },
-        },
-        {
-          title: "افزایش قیمت غذا (درصد)",
-          field: "increase_percent",
-          type: "text",
-          props: {
-            type: "number",
-          },
-          isHeader: true,
-          col: { md: 6 },
-        },
-        {
-          title: "افزایش قیمت غذا (مبلغ)",
-          field: "increase_rate",
-          type: "text",
-          props: {
-            type: "number",
-          },
-          isHeader: true,
-          col: { md: 6 },
-        },
-        {
-          title: "مدیر ها",
-          field: "admins",
-          type: "text",
-          isHeader: true,
-          props: {
-            readonly: true,
-          },
-          inList(value) {
-            return value.map((v) => v.name).join(" - ");
-          },
           col: { md: 6 },
         },
         {
