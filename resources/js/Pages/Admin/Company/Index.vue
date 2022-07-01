@@ -25,7 +25,7 @@ export default {
           col: { md: 6 },
         },
         {
-          title: "میزان سوبسید",
+          title: "میزان سوبسید روی هر غذا",
           field: "subsidy",
           type: "text",
           props: {

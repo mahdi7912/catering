@@ -64,7 +64,18 @@ __webpack_require__.r(__webpack_exports__);
         type: "text",
         isHeader: true,
         inList: function inList(user) {
-          return user.name + '  -  ' + user.user_name;
+          return user.name + "  -  " + user.user_name;
+        },
+        col: {
+          md: 6
+        }
+      }, {
+        title: "تاریخ",
+        field: "show_date",
+        type: "text",
+        isHeader: true,
+        inList: function inList(_, form) {
+          return new Date((0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(form, "meal.show_date")).toLocaleDateString("fa-IR");
         },
         col: {
           md: 6

@@ -40,7 +40,7 @@ __webpack_require__.r(__webpack_exports__);
           md: 6
         }
       }, {
-        title: "میزان سوبسید",
+        title: "میزان سوبسید روی هر غذا",
         field: "subsidy",
         type: "text",
         props: {

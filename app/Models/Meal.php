@@ -48,6 +48,8 @@ class Meal extends Model
             $price += $company->increase_rate;
         }
 
+        $price -= $company->subsidy;
+
         return ceil($price / 100) * 100;
     }
 

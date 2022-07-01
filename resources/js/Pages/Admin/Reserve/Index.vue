@@ -46,7 +46,17 @@ export default {
           type: "text",
           isHeader: true,
           inList(user) {
-            return user.name + '  -  ' + user.user_name;
+            return user.name + "  -  " + user.user_name;
+          },
+          col: { md: 6 },
+        },
+        {
+          title: "تاریخ",
+          field: "show_date",
+          type: "text",
+          isHeader: true,
+          inList(_, form) {
+            return new Date(getSafe(form, "meal.show_date")).toLocaleDateString("fa-IR");
           },
           col: { md: 6 },
         },
