@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('subsidy')->default(0);
-            $table->unsignedBigInteger('credit')->default(0);
+            $table->bigInteger('credit')->default(0);
             $table->unsignedBigInteger('increase_percent')->nullable();
             $table->unsignedBigInteger('increase_rate')->nullable();
             $table->text('business_days')->nullable();

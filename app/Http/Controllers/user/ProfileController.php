@@ -49,11 +49,19 @@ class ProfileController extends Controller
 
         $user = auth()->user();
 
+        $company = $user->company;
+
         if ($reserve->count() > 0) {
             Reserve::destroy($reserve->pluck('id'));
+
             $user->update([
                 'credit' => $user->credit + $meal->price
             ]);
+
+            $company->update([
+                'credit' => $company->credit + $company->subsidy
+            ]);
+
             return ['message' => 'با موفقیت حذف شد'];
         }
 
@@ -63,6 +71,10 @@ class ProfileController extends Controller
 
         $user->update([
             'credit' => $user->credit - $meal->price
+        ]);
+
+        $company->update([
+            'credit' => $company->credit - $company->subsidy
         ]);
 
         $meal->reserves()->create([
