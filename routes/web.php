@@ -68,6 +68,7 @@ Route::group(['prefix' => 'company', 'as' => 'company.', 'middleware' => ['auth'
 
 // company api
 Route::group(['prefix' => 'company', 'middleware' => ['auth', 'company']], function () {
+    Route::post('/fish/{reserve}', [CompanyReserveController::class, 'fish']);
     Route::apiResource('company', CompanyCompanyController::class);
     Route::apiResource('user', CompanyUserController::class);
     Route::get('reserve', [CompanyReserveController::class, 'index']);

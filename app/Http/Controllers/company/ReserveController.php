@@ -17,4 +17,27 @@ class ReserveController extends Controller
                 ->with(['user', 'meal' => fn ($q) => $q->with('food')])->paginate(request('allMain') ? 10000 : 15)
         ];
     }
+
+    public function fish($reserve)
+    {
+        $reserve = Reserve::with(['user', 'meal.food'])
+            ->where('id', $reserve)
+            ->first();
+
+        if (!$reserve) {
+            return response()->json(['message' => 'همچین ژتونی وجود ندارد'], 404);
+        }
+
+        $cloned = clone $reserve;
+
+        if (!$reserve->received) {
+            $reserve->update([
+                'received' => true
+            ]);
+        }
+
+        // todo : check reserve is for company
+
+        return $cloned;
+    }
 }

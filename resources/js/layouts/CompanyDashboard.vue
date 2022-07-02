@@ -32,6 +32,8 @@
 
       <v-spacer />
 
+      <QrScanner />
+
       <AddCredit :is-company="true" />
 
       <v-menu bottom min-width="150px" rounded offset-y>
@@ -78,9 +80,10 @@ import { Alert } from "majra";
 import { Link } from "@inertiajs/inertia-vue";
 import Loading from "@/components/utilities/Loading";
 import AddCredit from "@/components/credit/AddCredit.vue";
+import QrScanner from "@/components/company/QrScanner.vue";
 
 export default {
-  components: { Alert, "inertia-link": Link, Loading, AddCredit },
+  components: { Alert, "inertia-link": Link, Loading, AddCredit, QrScanner },
 
   name: "CompanyDashboard",
 

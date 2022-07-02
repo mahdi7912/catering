@@ -300,8 +300,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var toDayReserve = _step.value;
             var canvas = _this.$refs["canvas" + toDayReserve.id][0];
-            console.log(canvas);
-            qrcode__WEBPACK_IMPORTED_MODULE_5__.toCanvas(canvas, (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(_this.$page, "props.$user.name") + " - " + _this.mealMap[(0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(toDayReserve, "meal")] + " - " + (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(toDayReserve, "food.name") + " - " + new Date().toLocaleDateString("fa-IR"));
+            qrcode__WEBPACK_IMPORTED_MODULE_5__.toCanvas(canvas, (0,lodash__WEBPACK_IMPORTED_MODULE_2__.get)(toDayReserve, "reserve.id") + "");
           }
         } catch (err) {
           _iterator.e(err);

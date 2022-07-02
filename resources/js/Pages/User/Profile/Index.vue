@@ -258,17 +258,7 @@ export default {
       setTimeout(() => {
         for (const toDayReserve of this.toDayReserves) {
           let canvas = this.$refs["canvas" + toDayReserve.id][0];
-          console.log(canvas);
-          QRCode.toCanvas(
-            canvas,
-            getSafe(this.$page, "props.$user.name") +
-              " - " +
-              this.mealMap[getSafe(toDayReserve, "meal")] +
-              " - " +
-              getSafe(toDayReserve, "food.name") +
-              " - " +
-              new Date().toLocaleDateString("fa-IR")
-          );
+          QRCode.toCanvas(canvas, getSafe(toDayReserve, "reserve.id") + "");
         }
       }, 500);
     },
