@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('amount');
             $table->string('status');
             $table->string('factor');
+            $table->boolean('company')->default(false);
             $table->timestamps();
         });
     }

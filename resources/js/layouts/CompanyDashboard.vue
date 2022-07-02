@@ -32,6 +32,8 @@
 
       <v-spacer />
 
+      <AddCredit :is-company="true" />
+
       <v-menu bottom min-width="150px" rounded offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -75,9 +77,10 @@
 import { Alert } from "majra";
 import { Link } from "@inertiajs/inertia-vue";
 import Loading from "@/components/utilities/Loading";
+import AddCredit from "@/components/credit/AddCredit.vue";
 
 export default {
-  components: { Alert, "inertia-link": Link, Loading },
+  components: { Alert, "inertia-link": Link, Loading, AddCredit },
 
   name: "CompanyDashboard",
 

@@ -17,6 +17,8 @@ class CreditController extends Controller
             $transactionId = cache('credit-id-' . auth()->id());
             $amount = $request->amount == cache('credit-' . auth()->id()) ? $request->amount : 0;
 
+            $isCompany = !!$request->company;
+
             $receipt = Payment::amount($amount)
                 ->transactionId($transactionId)
                 ->verify();
@@ -25,16 +27,22 @@ class CreditController extends Controller
                 'user_id' => auth()->id(),
                 'amount' => $amount,
                 'status' => 'success',
+                'company' => $isCompany,
                 'factor' => $receipt->getReferenceId(),
             ]);
 
-            auth()->user()->update([
-                'credit' => auth()->user()->credit + $amount,
-            ]);
+            if ($isCompany)
+                auth()->user()->company->update([
+                    'credit' => auth()->user()->company->credit + $amount,
+                ]);
+            else
+                auth()->user()->update([
+                    'credit' => auth()->user()->credit + $amount,
+                ]);
 
             $message = 'اعتبار شما به مقدار ' . $amount . ' تومان افزایش یافت ';
 
-            return inertia('User/Response', compact('message'));
+            return inertia('User/Response', compact('message', 'isCompany'));
         } catch (\Exception $exception) {
             if ($exception->getCode() != 101)
                 PaymentModel::create([
@@ -44,7 +52,7 @@ class CreditController extends Controller
                     'factor' => 0,
                 ]);
 
-            return inertia('User/Response', ['message' => $exception->getMessage()]);
+            return inertia('User/Response', ['message' => $exception->getMessage(), 'isCompany' => $request->company]);
         }
     }
 
@@ -57,7 +65,7 @@ class CreditController extends Controller
         // $invoice->merchantId('07f37ae3-4e8f-4671-88cb-2f380ca4ad79');
         $invoice->detail(['detailName' => 'افزایش اعتبار']);
 
-        $callback = url('/credit/verification?amount=' . $request->credit);
+        $callback = url('/credit/verification?amount=' . $request->credit . '&company=' . (int) $request->isCompany);
 
         return Payment::callbackUrl($callback)
             ->purchase($invoice, function ($driver, $transactionId) {

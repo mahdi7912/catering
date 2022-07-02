@@ -5,9 +5,15 @@
         <v-alert type="info">
           {{ message }}
         </v-alert>
-        <Link href="/profile">
+        <Link href="/profile" v-if="!isCompany">
           <v-btn outlined color="info">
             <span>بازگشت به پنل رزرو غذا</span>
+            <v-icon right>mdi mdi-arrow-left</v-icon>
+          </v-btn>
+        </Link>
+        <Link href="/company/dashboard" v-else>
+          <v-btn outlined color="info">
+            <span>بازگشت به داشبرد</span>
             <v-icon right>mdi mdi-arrow-left</v-icon>
           </v-btn>
         </Link>
@@ -23,6 +29,10 @@ export default {
   props: {
     message: {
       type: String,
+    },
+    isCompany: {
+      default: false,
+      type: Boolean,
     },
   },
 

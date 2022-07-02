@@ -30,11 +30,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     message: {
       type: String
+    },
+    isCompany: {
+      "default": false,
+      type: Boolean
     }
   },
   components: {
@@ -207,25 +217,45 @@ var render = function () {
                 _vm._v("\n        " + _vm._s(_vm.message) + "\n      "),
               ]),
               _vm._v(" "),
-              _c(
-                "Link",
-                { attrs: { href: "/profile" } },
-                [
-                  _c(
-                    "v-btn",
-                    { attrs: { outlined: "", color: "info" } },
+              !_vm.isCompany
+                ? _c(
+                    "Link",
+                    { attrs: { href: "/profile" } },
                     [
-                      _c("span", [_vm._v("بازگشت به پنل رزرو غذا")]),
-                      _vm._v(" "),
-                      _c("v-icon", { attrs: { right: "" } }, [
-                        _vm._v("mdi mdi-arrow-left"),
-                      ]),
+                      _c(
+                        "v-btn",
+                        { attrs: { outlined: "", color: "info" } },
+                        [
+                          _c("span", [_vm._v("بازگشت به پنل رزرو غذا")]),
+                          _vm._v(" "),
+                          _c("v-icon", { attrs: { right: "" } }, [
+                            _vm._v("mdi mdi-arrow-left"),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  )
+                : _c(
+                    "Link",
+                    { attrs: { href: "/company/dashboard" } },
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { outlined: "", color: "info" } },
+                        [
+                          _c("span", [_vm._v("بازگشت به داشبرد")]),
+                          _vm._v(" "),
+                          _c("v-icon", { attrs: { right: "" } }, [
+                            _vm._v("mdi mdi-arrow-left"),
+                          ]),
+                        ],
+                        1
+                      ),
                     ],
                     1
                   ),
-                ],
-                1
-              ),
             ],
             1
           ),

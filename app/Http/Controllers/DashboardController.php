@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $meals = $meals->groupBy(['show_date', 'meal', 'food.name']);
 
         $companyReserves = $meals->pluck('reserves')->flatten()->groupBy('user.company.name');
-
+        // todo: use groupBy('user.company.name')
 
         return inertia('Admin/Dashboard', compact('meals', 'companyReserves'));
     }

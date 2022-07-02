@@ -19,9 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('number');
             $table->unsignedBigInteger('price');
+            $table->boolean('received')->default(false);
             $table->timestamps();
 
-            $table->unique(['user_id','food_date_id']);
+            $table->unique(['user_id', 'food_date_id']);
         });
     }
 
